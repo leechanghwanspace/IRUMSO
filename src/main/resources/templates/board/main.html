@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>메인 페이지</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header>
+    <h1>환영합니다!</h1>
+</header>
+<main>
+    <h2>게시판에 오신 것을 환영합니다!</h2>
+    <p>카카오 소셜 로그인을 통해 사용자 정보를 확인할 수 있습니다.</p>
+    <div th:if="${authenticated}">
+        <p>안녕하세요, <span th:text="${username}"></span>님!</p>
+        <a href="/board/posts">게시글 보러가기</a>
+    </div>
+    <div th:if="${!authenticated}">
+        <p>로그인을 해주세요!</p>
+        <a href="/oauth2/authorization/kakao">카카오 로그인</a>
+    </div>
+</main>
+<script src="/js/main.js"></script>
+</body>
+</html>

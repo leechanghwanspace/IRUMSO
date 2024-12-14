@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>게시글 상세보기</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/board-post.css">
+</head>
+<body>
+    <header>
+        <h1 th:text="${post.title}">게시글 제목</h1>
+    </header>
+    <main>
+        <p th:text="'작성자: ' + ${post.authorNickname}"></p>
+        <p th:text="'작성일: ' + ${post.createdAt}"></p>
+        <p th:text="${post.content}"></p>
+        <div th:if="${post.imageUrls}">
+            <img th:each="image : ${post.imageUrls}" th:src="${image}" alt="이미지">
+        </div>
+        <h3>댓글</h3>
+        <ul>
+            <li th:each="comment : ${comments}">
+                <p th:text="${comment.createdBy.nickname} + ': ' + ${comment.content}"></p>
+            </li>
+        </ul>
+        <form th:action="@{/api/comments}" method="post">
+            <input type="hidden" name="postId" th:value="${post.id}">
+            <textarea name="content" placeholder="댓글 작성"></textarea>
+            <button type="submit">댓글 작성</button>
+        </form>
+    </main>
+    <script src="/js/main.js"></script>
+    <script src="/js/board-post.js"></script>
+    <script src="/js/board-comment.js"></script>
+</body>
+</html>
